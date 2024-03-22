@@ -54,7 +54,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 resource "aws_instance" "my_instance" {
   ami           = "ami-080e1f13689e07408" # Example AMI, replace with appropriate AMI ID
   instance_type = "t2.micro"
-  key_name      = "mumbai"
+  key_name      = "varginia"
   count         = 4
 
   tags = {
@@ -65,20 +65,21 @@ resource "aws_instance" "my_instance" {
 resource "aws_instance" "ansible_server" {
   ami           = "ami-080e1f13689e07408" # Specify the appropriate AMI ID
   instance_type = "t2.micro"
-  key_name      = "mumbai"
+  key_name      = "varginia"
   count         = 1
 
   tags = {
     Name = "ansible-server"
   }
     user_data = <<-EOF
+    #!/bin/bash
+    sudo -i
     sudo apt update -y
     sudo apt install software-properties-common -y
     sudo apt-add-repository ppa:ansible/ansible
     sudo apt install ansible -y
-    sudo systemctl start ansible
-    sudo systemctl enable ansible
-    sudo systemctl status ansible
+    sudo ansible --version
+    echo "__________________script run successfully_______________"
   EOF
 }
 
