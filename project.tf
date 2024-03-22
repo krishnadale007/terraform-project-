@@ -71,11 +71,10 @@ resource "aws_instance" "ansible_server" {
   tags = {
     Name = "ansible-server"
   }
-
-  user_data = <<-EOF
+    user_data = <<-EOF
     sudo apt update -y
     sudo apt install software-properties-common -y
-    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt-add-repository ppa:ansible/ansible
     sudo apt install ansible -y
     sudo systemctl start ansible
     sudo systemctl enable ansible
